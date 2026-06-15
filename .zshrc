@@ -1,10 +1,11 @@
-# Kích hoạt p10k
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# Kích hoạt p10k (ĐÃ TẮT ĐỂ CHUYỂN SANG STARSHIP)
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k" # Tắt theme p10k
+ZSH_THEME="" # Starship sẽ tự động quản lý giao diện
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
@@ -13,7 +14,7 @@ alias ls='ls --color=auto'
 bindkey -v
 export KEYTIMEOUT=1
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh # Tắt cấu hình p10k
 export LS_COLORS="$(vivid generate gruvbox-dark-soft)"
 
 # Hàm lfcd: Giúp ở lại thư mục khi thoát lf
@@ -53,4 +54,8 @@ swarm-down() {
     multipass stop --all
 }
 alias sinfo="multipass list"
+
+
+# --- KHỞI ĐỘNG STARSHIP ---
+eval "$(starship init zsh)"
 

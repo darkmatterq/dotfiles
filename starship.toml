@@ -1,0 +1,70 @@
+
+# =============================================================================
+# STARSHIP CONFIGURATION (DevOps Focus)
+# =============================================================================
+
+# Không thêm dòng trống giữa các câu lệnh
+add_newline = false
+
+[line_break]
+disabled = true
+
+# Định dạng hiển thị thư mục
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+
+# Trạng thái Git
+[git_branch]
+symbol = "🌱 "
+style = "bold purple"
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+up_to_date = "✓"
+untracked = "🤷"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+# Các module dành riêng cho DevOps
+[aws]
+symbol = "☁️  "
+style = "bold yellow"
+disabled = false
+
+[kubernetes]
+symbol = "☸ "
+style = "bold blue"
+disabled = false
+[kubernetes.context_aliases]
+"arn:aws:eks:.*:cluster/(.*)" = "aws/$1"
+"gke_.*_(.*)" = "gke/$1"
+
+[docker_context]
+symbol = "🐳 "
+style = "bold blue"
+
+[terraform]
+symbol = "🏗️ "
+style = "bold magenta"
+
+[golang]
+symbol = "🐹 "
+
+[python]
+symbol = "🐍 "
+
+[nodejs]
+symbol = "📦 "
+
+# Dấu nhắc lệnh
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
