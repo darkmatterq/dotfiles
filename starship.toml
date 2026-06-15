@@ -1,70 +1,93 @@
-
 # =============================================================================
-# STARSHIP CONFIGURATION (DevOps Focus)
+# STARSHIP: THE MINIMALIST DEVOPS PRO (Final Polish)
 # =============================================================================
 
-# Không thêm dòng trống giữa các câu lệnh
-add_newline = false
+"$schema" = 'https://starship.rs/config-schema.json'
 
-[line_break]
+# --- CẤU HÌNH CHUNG ---
+command_timeout = 1000
+right_format = ""
+add_newline = true
+
+# Thứ tự hiển thị (Bỏ docker_context cũ, thay bằng custom.docker)
+format = """
+[┌](bold white) $hostname$directory$git_branch$git_status$kubernetes$aws$custom$terraform$python$sudo$line_break\
+[└](bold white) $character"""
+
+# --- CÁC MODULE HỆ THỐNG ---
+
+[directory]
+style = 'bold blue'
+format = '[$path]($style) '
+truncation_length = 5
+truncate_to_repo = false
+
+[character]
+success_symbol = '[ ❯ ](bold green)'
+error_symbol = '[ ❯ ](bold red)'
+
+# --- CUSTOM MODULES (Giải quyết lỗi mất icon Cá Voi) ---
+[custom.docker]
+symbol = ' '
+style = 'bold blue'
+format = 'on [$symbol]($style)' # Chỉ hiện icon cá voi cho gọn, không hiện chữ 'default'
+# Tự động hiện khi thấy các file Docker
+detect_files = ['Dockerfile', 'docker-compose.yml', 'docker-compose.yaml', 'compose.yml', 'compose.yaml']
+
+[hostname]
+ssh_only = true
+format = '[$hostname]($style) '
+style = 'bold orange'
+disabled = false
+
+# --- INFRASTRUCTURE ---
+[kubernetes]
+disabled = false
+symbol = '󱃾 '
+style = 'bold cyan'
+format = 'at [$symbol$context]($style) '
+detect_files = ['k8s', 'kube']
+
+[aws]
+symbol = '󰸏 '
+style = 'bold yellow'
+format = 'via [$symbol$profile]($style) '
+
+# Vô hiệu hóa module docker_context cũ để không bị trùng
+[docker_context]
 disabled = true
 
-# Định dạng hiển thị thư mục
-[directory]
-truncation_length = 3
-truncate_to_repo = true
-style = "bold cyan"
+[terraform]
+symbol = '󱁢 '
+style = 'bold magenta'
+format = 'via [$symbol$workspace]($style) '
 
-# Trạng thái Git
+# --- LANGUAGES (Học theo ý bạn: Chỉ hiện Icon, không hiện Version rườm rà) ---
+[python]
+symbol = '🐍 '
+style = 'bold yellow'
+format = 'via [${symbol}]($style)' # Đã bỏ ${version} cho sạch
+
+# --- VCS ---
 [git_branch]
-symbol = "🌱 "
-style = "bold purple"
+symbol = ' '
+style = 'bold purple'
+format = 'on [$symbol$branch]($style) '
 
 [git_status]
-conflicted = "🏳"
-ahead = "🏎💨"
-behind = "😰"
-diverged = "😵"
-up_to_date = "✓"
-untracked = "🤷"
-stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](green)'
-renamed = "👅"
-deleted = "🗑"
+style = 'bold red'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+up_to_date = ''
+modified = '!'
+staged = '+'
+untracked = '?'
+deleted = '✘'
 
-# Các module dành riêng cho DevOps
-[aws]
-symbol = "☁️  "
-style = "bold yellow"
+[sudo]
 disabled = false
+symbol = '🧙 '
+style = 'bold yellow'
+format = '[$symbol]($style)'
 
-[kubernetes]
-symbol = "☸ "
-style = "bold blue"
-disabled = false
-[kubernetes.context_aliases]
-"arn:aws:eks:.*:cluster/(.*)" = "aws/$1"
-"gke_.*_(.*)" = "gke/$1"
-
-[docker_context]
-symbol = "🐳 "
-style = "bold blue"
-
-[terraform]
-symbol = "🏗️ "
-style = "bold magenta"
-
-[golang]
-symbol = "🐹 "
-
-[python]
-symbol = "🐍 "
-
-[nodejs]
-symbol = "📦 "
-
-# Dấu nhắc lệnh
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
+[cmd_duration]
+disabled = true

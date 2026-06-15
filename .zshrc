@@ -6,7 +6,11 @@
 export ZSH="$HOME/.oh-my-zsh"
 # ZSH_THEME="powerlevel10k/powerlevel10k" # Tắt theme p10k
 ZSH_THEME="" # Starship sẽ tự động quản lý giao diện
-plugins=(git)
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 source $ZSH/oh-my-zsh.sh
 
 # --- CẤU HÌNH GỐC CỦA QUÂN ---
@@ -59,3 +63,5 @@ alias sinfo="multipass list"
 # --- KHỞI ĐỘNG STARSHIP ---
 eval "$(starship init zsh)"
 
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
