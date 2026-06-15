@@ -1,0 +1,29 @@
+[window]
+# 0.95 là tỷ lệ vàng, vừa đủ để thấy hình nền mà không làm chữ bị "bay"
+opacity = 0.95
+padding = { x = 20, y = 20 } # Tăng padding lên chút để mắt không bị bó hẹp
+
+[font]
+# DevOps thường phải đọc log rất dài, hãy dùng font có khoảng cách thoáng
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 12.0
+# Quan trọng: Tăng khoảng cách dòng để mắt dễ quét code (giảm mỏi mắt 30%)
+offset = { x = 0, y = 2 } 
+
+[colors.primary]
+# Màu nền Everforest Soft thực thụ (Organic & Dịu)
+background = '#2d353b'  
+foreground = '#d3c6aa'
+
+[colors.normal]
+black   = '#343f44'
+red     = '#e67e80'
+green   = '#a7c080'
+yellow  = '#dbbc7f'
+blue    = '#7fbbb3'
+magenta = '#d699b6'
+cyan    = '#83c092'
+white   = '#d3c6aa'
+
+
+
