@@ -1,0 +1,37 @@
+set $mod Mod4
+font pango:JetBrainsMono Nerd Font 10
+
+# Khởi động ứng dụng nền
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id setxkbmap -option caps:escape
+exec_always --no-startup-id plank
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id redshift -O 4500
+
+# Phím tắt
+bindsym $mod+Return exec alacritty
+bindsym $mod+d exec "rofi -show drun -show-icons"
+bindsym Print exec flameshot gui
+
+# Di chuyển (Vim-style)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Thẩm mỹ Everforest
+gaps inner 10
+gaps outer 5
+default_border pixel 0
+default_floating_border pixel 0
+
+# Màu sắc Everforest
+client.focused          #a7c080 #2d353b #d3c6aa #a7c080   #a7c080
+client.focused_inactive #475258 #2d353b #d3c6aa #475258   #475258
+client.unfocused        #475258 #2d353b #9da9a0 #475258   #475258
+
+# Hệ thống
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exit
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id plank

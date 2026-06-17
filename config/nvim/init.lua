@@ -1,0 +1,1 @@
+/home/quann/dotfiles/nvim/init.lua

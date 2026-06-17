@@ -49,14 +49,29 @@ eval "$(zoxide init zsh)"
 
 # --- LAB DEVOPS ---
 swarm-up() {
+    echo "🛡️  Đang kích hoạt module ảo hóa..."
+    sudo modprobe kvm-intel
+
     echo "🚀 Đang đánh thức các node..."
+    # Tắt Docker host trước để nhường tài nguyên
+    if systemctl is-active --quiet docker; then
+        sudo systemctl stop docker.socket && sudo systemctl stop docker
+    fi
+    
     multipass start --all
+    echo "📋 Trạng thái các node:"
     multipass list
 }
+
 swarm-down() {
     echo "💤 Đang cho các node đi ngủ..."
     multipass stop --all
+    
+    # Tùy chọn: Tự động bật lại Docker host khi đóng Lab
+    echo "🐳 Khởi động lại Docker trên máy host..."
+    sudo systemctl start docker
 }
+
 alias sinfo="multipass list"
 
 
@@ -65,3 +80,19 @@ eval "$(starship init zsh)"
 
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
+
+# --- FZF PRO CONFIGURATION ---
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --margin=1 --padding=1 \
+--color=bg+:#323d43,bg:#2d353b,spinner:#a7c080,hl:#e67e80 \
+--color=fg:#d3c6aa,header:#a7c080,info:#dbbc7f,pointer:#a7c080 \
+--color=marker:#e67e80,fg+:#d3c6aa,prompt:#d699b6,hl+:#e67e80 \
+--prompt='🚀 ' --pointer='▶' --marker='✓'"
+
+# Preview file nội dung khi tìm kiếm (Dùng batcat)
+export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+# Preview thư mục khi nhảy (Dùng eza)
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --icons {} | head -200'"
+
+# Tích hợp fzf-tab (Nếu bạn muốn dùng tab để chọn)
+# source /usr/share/doc/fzf/examples/completion.zsh 2>/dev/null
+# source /usr/share/doc/fzf/examples/key-bindings.zsh 2>/dev/null
